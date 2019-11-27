@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<option count="" maxCount="">
+		<step type="begin" postion ="100,200"></step>
+		
+		<step type="showDesktop" postion ="100,50" value="0"></step>
+		
+		<step type="leftDoubleClick" postion ="100,50" value="0"></step>
+		<step type="leftDoubleClick" postion ="100,150" value="0"></step>
+		<step type="leftDoubleClick" postion ="100,250" value="0"></step>
+		<step type="leftDoubleClick" postion ="100,350" value="0"></step>
+		
+		<step type="end" postion ="100,200"></step>
+	
+	</option>
+	
+	<option count="" maxCount="">		
+		<step type="showDsktop" postion ="0,0" value="0"></step>
+		
+		<step type="leftDoubleClick" postion ="100,50" value="0"></step>
+	
+	</option>
+</root>
