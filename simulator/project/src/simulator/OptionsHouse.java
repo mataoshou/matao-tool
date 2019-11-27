@@ -10,6 +10,10 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
+import simulator.pojo.OptionItem;
+import simulator.pojo.StepItem;
+import simulator.util.DomUtil;
+
 public class OptionsHouse
 {
 	List<OptionItem> options = new ArrayList();

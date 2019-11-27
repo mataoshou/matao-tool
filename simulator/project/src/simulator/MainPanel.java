@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 
 import org.dom4j.DocumentException;
 
+import simulator.pojo.OptionItem;
+
 public class MainPanel
 {
 	public static void main(String[] args)
