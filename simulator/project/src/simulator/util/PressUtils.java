@@ -70,15 +70,15 @@ public class PressUtils
 		this.rbt.mouseRelease(InputEvent.BUTTON3_MASK);
 	}
 	
-	public void keyPress(int keyCode) {
-		
-		this.rbt.delay(delay);
-		this.rbt.keyPress(keyCode);
-		this.rbt.delay(delay);
-		this.rbt.keyRelease(keyCode);
-	}
+//	public void keyPress(int keyCode) {
+//		
+//		this.rbt.delay(delay);
+//		this.rbt.keyPress(keyCode);
+//		this.rbt.delay(delay);
+//		this.rbt.keyRelease(keyCode);
+//	}
 	
-	public void keyCombinationPress(int...keyCodes) {
+	public void keyPress(int...keyCodes) {
 		
 		for(int i=0;i<keyCodes.length;i++)
 		{
@@ -92,5 +92,17 @@ public class PressUtils
 			this.rbt.keyRelease(keyCodes[i]);
 		}
 		
+	}
+	
+	public void waitOption(int time)
+	{
+		try
+		{
+			Thread.sleep(time*1000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

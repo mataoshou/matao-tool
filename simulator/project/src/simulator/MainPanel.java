@@ -1,16 +1,8 @@
 package simulator;
 
-import java.awt.AWTException;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.awt.Point;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.awt.event.InputEvent;
 import java.io.File;
 import java.io.IOException;
-
-import javax.swing.JFrame;
 
 import org.dom4j.DocumentException;
 
@@ -37,7 +29,6 @@ public class MainPanel
 				try
 				{
 					MainPanel window = new MainPanel();
-					
 					window.startDemo(homeDir);
 				} catch (Exception e)
 				{
@@ -45,6 +36,7 @@ public class MainPanel
 				}
 			}
 		});
+		
 	}
 
 	

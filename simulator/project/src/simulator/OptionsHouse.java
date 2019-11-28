@@ -47,8 +47,11 @@ public class OptionsHouse
 	 			String postion = DomUtil.getValue(stepEle, "postion", "0,0");
 	 			getPostion(step,postion);
 	 			
-	 			String values = DomUtil.getValue(stepEle, "value", "0");
-	 			step.value = getValue(values);
+	 			
+ 				step.content =DomUtil.child(stepEle, "content", "abcdefg");
+	 			
+	 			String value = DomUtil.getValue(stepEle, "value", "0");
+	 			step.value = value;
 	 			steps.add(step);
 	 		}
 	 		option.steps = steps;
@@ -62,19 +65,6 @@ public class OptionsHouse
 	 	
 	}
 	
-	public int[] getValue(String values)
-	{
-		String[] strs = duplicate(values.split(","));
-		
-		int[] keys = new int[strs.length];
-		
-		for(int i=0;i<strs.length;i++)
-		{
-			keys[i] = Integer.valueOf(strs[i]);
-		}
-		
-		return keys;
-	}
 	
 	public void getPostion(StepItem step,String postion)
 	{

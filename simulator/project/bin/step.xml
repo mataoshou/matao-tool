@@ -6,18 +6,49 @@
 		<step type="showDesktop" postion ="100,50" value="0"></step>
 		
 		<step type="leftDoubleClick" postion ="100,50" value="0"></step>
-		<step type="leftDoubleClick" postion ="100,150" value="0"></step>
-		<step type="leftDoubleClick" postion ="100,250" value="0"></step>
-		<step type="leftDoubleClick" postion ="100,350" value="0"></step>
+		<step type="wait" postion ="100,50" value="5"></step>
+		<step type="leftClick" postion ="950,565" value="0"></step>
+		<step type="text" postion ="100,50" value="2442109995"></step>
+		<step type="leftClick" postion ="950,605" value="0"></step>
+		<step type="text" postion ="100,50" value="1qaz@WSX"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
 		
+		<step type="leftDoubleClick" postion ="100,50" value="0"></step>
+		<step type="wait" postion ="100,50" value="5"></step>
+		<step type="leftClick" postion ="960,580" value="0"></step>
+		<step type="text" postion ="100,50" value="945072925"></step>
+		<step type="leftClick" postion ="960,620" value="0"></step>
+		<step type="text" postion ="100,50" value="1qaz@WSX"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
+
 		<step type="end" postion ="100,200"></step>
 	
 	</option>
 	
 	<option count="" maxCount="">		
-		<step type="showDsktop" postion ="0,0" value="0"></step>
-		
-		<step type="leftDoubleClick" postion ="100,50" value="0"></step>
+		<step type="leftDoubleClick" postion ="100,150" value="0"></step>
+		<step type="wait" postion ="100,50" value="5"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
 	
 	</option>
+	
+		<option count="" maxCount="">		
+		<step type="leftDoubleClick" postion ="100,250" value="0"></step>
+		<step type="wait" postion ="100,50" value="20"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
+	
+	</option>
+
+	
+	<option count="" maxCount="">		
+		<step type="leftDoubleClick" postion ="100,350" value="0"></step>
+
+	</option>
+	
+	<!-- type 类型  showDesktop(显示桌面) leftClick(点击鼠标左键) leftDoubleClick(双击鼠标左键)
+	  rightClick(点击鼠标右键)  keyPress(单个按键) combinationKeyPress(组合按键)  wait(等待  单位秒)
+	  text(输入文本) randomtext(输入随机文本，需要填写content属性)-->
+	<!-- content 配置randomtext时,会 获取随机内容 -->
+	<!-- postion 操作的 x , y 坐标 -->
+	<!-- option count 表示循环次数 -->
 </root>

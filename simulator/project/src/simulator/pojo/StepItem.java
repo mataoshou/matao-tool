@@ -6,5 +6,7 @@ public class StepItem
 	public String type;
 	public int x;
 	public int y;
-	public int[] value;
+	public String value;
+	
+	public String content;
 }
