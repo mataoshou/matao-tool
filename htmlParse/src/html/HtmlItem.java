@@ -5,17 +5,11 @@ import java.util.Date;
 public class HtmlItem
 {
 	private String id;
-	
 	private String srcMd5;
-	
 	private String src;
-	
 	private String staticContent;
-	
 	private String contentMd5;
-	
 	private String sourceContent;
-	
 	
 	private Short statu1;
 	private Short statu2;
@@ -23,12 +17,10 @@ public class HtmlItem
 	private Short statu4;
 	private Short statu5;
 	
-	
 	private Date createTime;
 	
 	private Date startTime;
 	private Date endTime;
-	
 	
 	public String getId()
 	{
