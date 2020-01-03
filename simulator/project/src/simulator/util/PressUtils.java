@@ -6,6 +6,8 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 
+import javax.security.auth.kerberos.KeyTab;
+
 public class PressUtils
 {
 	
@@ -27,20 +29,26 @@ public class PressUtils
 	
 	public void showDesktop()
 	{
-    	Dimension   screensize   =   Toolkit.getDefaultToolkit().getScreenSize();
-    	int width = (int)screensize.getWidth();
-    	int height = (int)screensize.getHeight();
+//    	Dimension   screensize   =   Toolkit.getDefaultToolkit().getScreenSize();
+//    	int width = (int)screensize.getWidth();
+//    	int height = (int)screensize.getHeight();
     	
-    	this.rbt.delay(delay);
-    	this.rbt.mouseMove(width-5, height-10);
-    	this.rbt.delay(delay);
-        mouseLeftClick();
+//    	this.rbt.delay(delay);
+//    	this.rbt.mouseMove(width-5, height-10);
+//    	this.rbt.delay(delay);
+//        mouseLeftClick();
+		this.rbt.delay(delay);
+		keyPress(KeyCodeTable.one().getCode(new String[]{"win","d"}));
 	}
 	
 	public void moveTo(int x,int y)
 	{
-		this.rbt.delay(delay);
-		this.rbt.mouseMove(x, y);
+		int count =0;
+		while((count++)<=10)
+		{
+			this.rbt.delay(delay);
+			this.rbt.mouseMove(x, y);
+		}
 	}
 	
 	public void mouseDoubleClick(int x,int y ) {
