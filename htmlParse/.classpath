@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/selenium-java-3.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-api-3.14.0.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-api-3.14.0.jar" sourcepath="C:/Users/ADMINI~1/AppData/Local/Temp/.org.sf.feeling.decompiler1578536911053/source/selenium-api-3.14.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-chrome-driver-3.14.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-firefox-driver-3.14.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-ie-driver-3.14.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-opera-driver-3.14.0.jar"/>
-	<classpathentry kind="lib" path="lib/selenium-remote-driver-3.14.0.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-remote-driver-3.14.0.jar" sourcepath="C:/Users/ADMINI~1/AppData/Local/Temp/.org.sf.feeling.decompiler1578619613428/source/selenium-remote-driver-3.14.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-safari-driver-3.14.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-server-3.8.1.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-support-3.14.0.jar"/>
@@ -17,5 +16,8 @@
 	<classpathentry kind="lib" path="lib/byte-buddy-1.8.15.jar"/>
 	<classpathentry kind="lib" path="lib/okhttp-3.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/okio-1.14.0.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/jsoup-1.10.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

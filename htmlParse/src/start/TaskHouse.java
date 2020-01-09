@@ -1,4 +1,4 @@
-package automatic.start;
+package start;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,12 +9,12 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
-import automatic.oper.GroupItem;
-import automatic.oper.OperItem;
-import automatic.oper.SimpleItem;
-import automatic.oper.SourceItem;
-import automatic.oper.TaskItem;
-import automatic.util.DomUtil;
+import oper.GroupItem;
+import oper.OperItem;
+import oper.SimpleItem;
+import oper.SourceItem;
+import oper.TaskItem;
+import util.DomUtil;
 
 public class TaskHouse
 {

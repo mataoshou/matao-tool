@@ -1,4 +1,4 @@
-package automatic.oper;
+package oper;
 
 import java.io.File;
 import java.util.HashMap;
@@ -15,7 +15,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 
-import automatic.html.HtmlOper;
+import html.HtmlOper;
 import javafx.scene.input.KeyCode;
 
 public class GroupTask implements Runnable

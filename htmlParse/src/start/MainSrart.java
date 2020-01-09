@@ -1,13 +1,14 @@
-package automatic.start;
+package start;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.dom4j.DocumentException;
 
-import automatic.oper.GroupItem;
-import automatic.oper.GroupTask;
-import automatic.oper.TaskItem;
+import oper.GroupItem;
+import oper.GroupTask;
+import oper.TaskItem;
+
 
 public class MainSrart
 {

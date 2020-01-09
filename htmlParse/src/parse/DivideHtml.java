@@ -10,14 +10,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.cyberneko.html.parsers.DOMParser;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 public class DivideHtml
 {
@@ -168,11 +164,10 @@ public class DivideHtml
 
 	public void init(String content) throws SAXException, IOException
 	{
-		DOMParser parser = new DOMParser();
-		parser.parse(new InputSource(new StringReader(content)));
-		Document doc = parser.getDocument();
-		Node body = doc.getElementsByTagName("BODY").item(0);
-		body.getTextContent();
+		Document doc= Jsoup.parse(content);
+
+		Element body = doc.select("BODY").get(0);
+		body.text();
 		getConentLine(body);
 		System.out.println(contentText);
 		parser();

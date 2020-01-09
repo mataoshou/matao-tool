@@ -1,4 +1,4 @@
-package automatic.oper;
+package oper;
 
 import java.util.ArrayList;
 import java.util.List;
