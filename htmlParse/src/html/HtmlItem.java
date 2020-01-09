@@ -134,5 +134,4 @@ public class HtmlItem
 	{
 		this.endTime = endTime;
 	}
-	
 }
