@@ -20,12 +20,11 @@ import javafx.scene.input.KeyCode;
 
 public class GroupTask implements Runnable
 {
-	
-	GroupItem item;
+	ThreadLocal<GroupItem>  local;
 	
 	public void setItem(GroupItem item)
 	{
-		this.item = item;
+		this.local.set(item);;
 	}
 
 	@Override
@@ -33,12 +32,13 @@ public class GroupTask implements Runnable
 	{
 		System.out.println("开始执行操作");
 		
+		GroupItem item = local.get();
+		
 		for(SourceItem sitem : item.getSources())
 		{
 			ChromeOptions options = new ChromeOptions();
 			
 			WebDriver driver  =null;
-			
 
 			if(item.getShow()==1)
 			{

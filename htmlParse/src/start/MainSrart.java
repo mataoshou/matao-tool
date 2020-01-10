@@ -14,6 +14,7 @@ public class MainSrart
 {
 	public static void main(String[] args)
 	{
+		System.out.println(System.currentTimeMillis());
 		if(args ==null||args.length==0||args[0]==null||args[0].length()==0)
 		{
 			System.out.println("config path is error!!");
