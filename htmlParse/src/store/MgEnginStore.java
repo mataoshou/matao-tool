@@ -6,6 +6,7 @@ public class MgEnginStore
 {
 	
 	File root =null;
+	
 	public void setRoot(File root)
 	{
 		this.root = root;
