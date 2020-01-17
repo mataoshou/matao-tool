@@ -1,6 +1,7 @@
 package store;
 
 import java.io.File;
+import java.io.InputStream;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -13,6 +14,8 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
+import pojo.store.FileItem;
+import pojo.store.WordItem;
 import util.HexUtil;
 
 public class StoreUtil
@@ -22,16 +25,32 @@ public class StoreUtil
 	{
 		List<FileItem> list = new ArrayList();
 		
-		
-		
 		return list;
 	}
 	
-	public void getWords(String key)
+
+	
+	//获取文件流指定内容
+	public byte[] getByte(InputStream input,int length) throws Exception
 	{
-		
-		
-		
+		if(input==null) return null;
+		byte[] bs = new byte[length];
+		int no =0;
+		int index =0;
+		while(no<length)
+		{
+			index = input.read(bs, no, length-no);
+			if(index==-1)break;
+			no+=no;
+		}
+		if(no==length) return bs;
+		if(index==-1) 
+		{
+			System.out.println("文件流读取结束");
+			return null;
+			
+		}
+		throw new Exception("读取文件内容异常！！");
 	}
 	
 	
@@ -47,7 +66,9 @@ public class StoreUtil
 	}
 	
 	
-	private String[] keys= new String[]{"1111111mtgmz1111","2222222mtgmz2222","3333333mtgmz3333"};
+	public String[] keys= new String[]{"1111111mtgmz1111","2222222mtgmz2222","3333333mtgmz3333"};
+	
+	
 	
 	// 加密
     public String encry(String keyStr ,String content)    {
@@ -60,7 +81,7 @@ public class StoreUtil
             // 加密
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] result = cipher.doFinal("马焘".getBytes());
+            byte[] result = cipher.doFinal(content.getBytes());
             String resultStr =HexUtil.to(result);
             return resultStr;
             

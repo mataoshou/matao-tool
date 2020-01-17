@@ -1,4 +1,4 @@
-package oper;
+package pojo;
 
 public class SimpleItem
 {

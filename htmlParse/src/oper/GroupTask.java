@@ -17,22 +17,24 @@ import org.openqa.selenium.interactions.Actions;
 
 import html.HtmlOper;
 import javafx.scene.input.KeyCode;
+import pojo.SimpleItem;
+import pojo.oper.GroupItem;
+import pojo.oper.OperItem;
+import pojo.oper.SourceItem;
 
 public class GroupTask implements Runnable
 {
-	ThreadLocal<GroupItem>  local;
+	GroupItem item;
 	
 	public void setItem(GroupItem item)
 	{
-		this.local.set(item);;
+		this.item = item;
 	}
 
 	@Override
 	public void run()
 	{
 		System.out.println("开始执行操作");
-		
-		GroupItem item = local.get();
 		
 		for(SourceItem sitem : item.getSources())
 		{
@@ -58,42 +60,50 @@ public class GroupTask implements Runnable
 			driver.manage().window().maximize();//浏览器最大化
 		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);//超时等待30秒
 			
-	    	driver.get(sitem.getSrc());
-		    System.out.println("加载页面:"+ sitem.getSrc());
-		    
-		    for(int i=0;i<item.getOperCount();i++)
-			{
-		    	WebElement body = driver.findElement(By.tagName("body"));
-			    for(OperItem oitem:item.getOpers())
-			    {
-			    	try {
-					    By by =null;
-					    for(SimpleItem select : oitem.getItems())
-					    {
-					    	by= getDom(select.getKey(),select.getValue(),by);
-					    }
-				    	WebElement ele = body;
-				    	if(by!=null)
-				    	{	 
-				    		ele= body.findElement(by);
+		    for(int b = sitem.getBegin();b<sitem.getEnd();b=b+sitem.getInterval())
+		    {
+		    	String url =sitem.getSrc();
+		    	for(String param : sitem.getParams())
+		    	{
+		    		url =url.replace(param, String.valueOf(b));
+		    	}
+		    	driver.get(url);
+			    System.out.println("加载页面:"+ url);
+			    
+			    for(int i=0;i<item.getOperCount();i++)
+				{
+			    	WebElement body = driver.findElement(By.tagName("body"));
+				    for(OperItem oitem:item.getOpers())
+				    {
+				    	try {
+						    By by =null;
+						    for(SimpleItem select : oitem.getItems())
+						    {
+						    	by= getDom(select.getKey(),select.getValue(),by);
+						    }
+					    	WebElement ele = body;
+					    	if(by!=null)
+					    	{	 
+					    		ele= body.findElement(by);
+					    	}
+					    	oper(oitem,ele,driver,item.getInterval());
 				    	}
-				    	oper(oitem,ele,driver,item.getInterval());
-			    	}
-			    	catch(Exception e)
-			    	{
-			    		e.printStackTrace();
-			    	}
-			    	 
-			    	try
-					{
-						Thread.sleep(item.getInterval()*1000);
-					} catch (InterruptedException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-			    }
-			}
+				    	catch(Exception e)
+				    	{
+				    		e.printStackTrace();
+				    	}
+				    	 
+				    	try
+						{
+							Thread.sleep(item.getInterval()*1000);
+						} catch (InterruptedException e)
+						{
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+				    }
+				}
+		    }
 			
 		}
 		System.out.println("完成执行操作");
@@ -170,21 +180,22 @@ public class GroupTask implements Runnable
 						}break;
 			case "scroll":{
 				System.out.println("执行滚屏操作");
-				int old = item.getEnd();
+				int begin=item.getBegin();
+				int end =item.getEnd();
 				if(item.getEnd()==-1)
 				{
 					if(ele==null)
 					{
 						ele = driver.findElement(By.tagName("body"));
 					}
-
-					item.setEnd(ele.getSize().height);
+					
+					end =ele.getSize().height;
 				}
 				if(item.getEnd()<=item.getBegin())break;
 				
 				ele.click();
 				
-				int wait = item.getEnd()/item.getInterval() + 1;
+				int wait = (end-begin)/item.getInterval() + 1;
 				for(int i=0;i<wait;i++)
 				{
 					actions.sendKeys(Keys.DOWN).build().perform();
@@ -198,7 +209,6 @@ public class GroupTask implements Runnable
 						e.printStackTrace();
 					}
 				}
-				item.setEnd(old);
 				break;
 			}
 		}

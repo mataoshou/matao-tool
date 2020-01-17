@@ -3,6 +3,8 @@ package oper;
 import java.util.ArrayList;
 import java.util.List;
 
+import pojo.oper.GroupItem;
+
 public class TaskItem
 {
 	private String name;

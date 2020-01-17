@@ -1,10 +1,12 @@
-package store;
+package pojo.store;
 
 public class FileItem
 {
 	private int id;
 	
 	private String filePath;
+	
+	private String fileName;
 	
 	private long max;
 	
@@ -25,6 +27,16 @@ public class FileItem
 	}
 
 	
+
+	public String getFileName()
+	{
+		return fileName;
+	}
+
+	public void setFileName(String fileName)
+	{
+		this.fileName = fileName;
+	}
 
 	public String getFilePath()
 	{

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<file id="00000001" fileName ="mg_engin_1.mt"></file>
-	<file id="00000002" fileName ="mg_engin_2.mt"></file>
-	<file id="00000003" fileName ="mg_engin_3.mt"></file>
-	<file id="00000004" fileName ="mg_engin_4.mt"></file>
+	<items>
+		<item fileName ="mg_engin_1.mt" max="100" use="10" empty="10" conut="12"></item>
+	</items>
+	<words>
+		<word id="00000001" fileName ="mg_engin_1.mt"></word>
+	</words>
+	
+	<stores>
+		<store id="00000001" fileName ="mg_engin_1.mt"></store>
+	</stores>
 </root>

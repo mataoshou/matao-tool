@@ -6,11 +6,11 @@
 		<group name="shineon" count="1" interval="5">
 			<base>
 				<!--src 浏览器中输入地址    source可以存在多个    其他参数暂不支持-->
-				<source src="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_8787903623099569480%22%7D&amp;n_type=0&amp;p_from=1"  begin ="" end ="" interval="" params=""></source>
+				<source src="https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_8787903623099569480%22%7D&amp;n_type=0&amp;p_from=##1"  begin ="1" end ="5" interval="2" params="##1"></source>
 			</base>
 			<!-- item 参数说明   type（操作类型  input输入  click点击  dbclick双击  rightclick右击  move移动到  wait等待 close关闭浏览器）   interval（操作时间间隔 单位秒）-->
 			<!-- select 参数说明   type（选中类型  class类名  tag 选中dom  id选择id  name选择name-->
-			<operation count="50">
+			<operation count="1">
 				<item type="scroll" value =""  begin ="0" end ="-1" interval="51">
 					<!--<select type="class" value ="ComicPics"></select>-->
 				</item>
@@ -20,15 +20,17 @@
 				<item type="html" value="c:/222">
 					
 				</item>
-				<item type="img" value ="c:/111/">
+				<!-- <item type="img" value ="c:/111/">-->
 					<!--<select type="class" value ="ComicPics"></select>-->
 					<!--<select type="class" value ="imgList"></select>-->
-				</item>
+				<!--</item>
 				<item type="click" value ="">
 					<select type="tag" value="a"></select>
 					<select type="class" value="next"></select>
+				</item> -->
+				<item type="wait" value="5">
+					
 				</item>
-				<item type="wait" value="5"></item>
 				
 			</operation>
 			

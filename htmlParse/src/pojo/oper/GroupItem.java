@@ -1,4 +1,4 @@
-package oper;
+package pojo.oper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +18,6 @@ public class GroupItem
 	private String name;
 	
 	private int show;
-	
-	
 	
 	public int getOperCount()
 	{
