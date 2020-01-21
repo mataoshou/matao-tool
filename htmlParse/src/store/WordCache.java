@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import pojo.store.FileItem;
 import pojo.store.StoreItem;
 import pojo.store.WordItem;
+import store.unit.ItemUnit;
+import store.unit.WordUnit;
 import util.Shift;
 
 public class WordCache implements ICache<WordItem>
@@ -158,51 +160,11 @@ public class WordCache implements ICache<WordItem>
 		{
 			if(item.getMod()>0)
 			{
-				if(item.getsIds().size()<item.getMax())
-				{
-					try {
-						File f = new File(root,item.getFileName());
-						RandomAccessFile stream = new RandomAccessFile(f, "rw");
-						stream.seek(item.getBegin());						
-						writeItem(item,stream);
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-					}
-				}
-				else 
-				{
-					try 
-					{
-						{
-							File f = new File(root,item.getFileName());
-							RandomAccessFile stream = new RandomAccessFile(f, "rw");
-							Shift shift = new Shift();
-							stream.seek(item.getBegin());
-							stream.writeBytes("0");
-							stream.close();
-						}
-						int length = getLength(item);
-						for(FileItem file: fileitems.values())
-						{
-							if(file.getEmpty()>length)
-							{
-								File f = new File(root,file.getFileName());
-								RandomAccessFile stream = new RandomAccessFile(f, "rw");
-								stream.seek(file.getUsed());
-								writeItem(item,stream);
-								continue first;
-							}
-						}
-						
-						
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-					}
-				}
+				WordUnit unit = new WordUnit();
+				unit.setItem(item);
+				
+				
+				
 			}
 		}
 	}
@@ -212,27 +174,4 @@ public class WordCache implements ICache<WordItem>
 		return (state_len + no_len*5+id_len*item.getsIds().size() +item.getWord().length());
 	}
 	
-	public void writeItem(WordItem item,RandomAccessFile stream) throws IOException
-	{
-		Shift shift = new Shift();
-		
-		stream.writeBytes("1");
-		stream.writeBytes(shift.leftZeroShift(item.getBegin(), 32));
-		stream.writeBytes(shift.leftZeroShift(item.getEnd(), 32));
-		stream.writeBytes(shift.leftZeroShift(item.getLength(), 32));
-		int max= item.getsIds().size();
-		if(max>32) {
-			max +=32;
-		}else {
-			max = max*2;
-		}
-		stream.writeBytes(shift.leftZeroShift(max, 32));
-		stream.writeBytes(shift.leftZeroShift(item.getsIds().size(), 32));
-		
-		for(String id : item.getsIds())
-		{
-			stream.writeBytes(id);
-		}
-		stream.close();
-	}
 }

@@ -2,19 +2,25 @@ package pojo.store;
 
 public class FileItem
 {
+	//唯一标识
 	private int id;
 	
 	private String filePath;
 	
 	private String fileName;
-	
+	//最大存储空间
 	private long max;
-	
+	//已使用存储
 	private long used;
-	
+	//空闲存储
 	private long empty;
-	
+	//存储数量
 	private int storeCount;
+	//文件是否存在  0 不存在  1存在
+	private int isExit = 1;
+	
+	//word  item  content
+	private String type;
 
 	public int getId()
 	{
@@ -27,6 +33,26 @@ public class FileItem
 	}
 
 	
+
+	public int getIsExit()
+	{
+		return isExit;
+	}
+
+	public void setIsExit(int isExit)
+	{
+		this.isExit = isExit;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
+	}
 
 	public String getFileName()
 	{

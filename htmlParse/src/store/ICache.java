@@ -9,4 +9,6 @@ public interface ICache<T>
 {
 	void loadCache(File root);
 	void saveCache(File root);
+	
+	void edit(String key,T item);
 }

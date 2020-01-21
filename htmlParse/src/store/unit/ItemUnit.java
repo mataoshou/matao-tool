@@ -1,6 +1,10 @@
 package store.unit;
 
+import java.io.File;
+import java.io.RandomAccessFile;
+
 import pojo.store.StoreItem;
+import store.config.FileConfig;
 import util.Shift;
 
 public class ItemUnit extends IBaseStoreUnit<StoreItem>
@@ -17,28 +21,49 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 		result += shift.leftZeroShift(item.getEnd(), noLen);
 		result += shift.leftZeroShift(item.getLength(), noLen);
 		
-		return "";
+		result += shift.leftZeroShift(item.getStoreName(), idLen);
+		
+		return result;
 	}
 
 	@Override
 	public long getBegin()
 	{
-		// TODO Auto-generated method stub
 		return this.getItem().getBegin();
 	}
 
 	@Override
 	public String getFileName()
 	{
-		// TODO Auto-generated method stub
 		return this.getItem().getFileName();
 	}
 
 	@Override
 	public boolean isFull()
 	{
-		// TODO Auto-generated method stub
-		return false;
+		return true;
+	}
+
+	@Override
+	public String getId()
+	{
+		return this.item.getId();
+	}
+
+	@Override
+	public void persist()
+	{
+		try {
+			File file = new File(FileConfig.fileHouse,this.item.getFileName());
+			RandomAccessFile stream = new RandomAccessFile(file, "rw");
+			stream.seek(item.getBegin());
+			stream.writeBytes(buildFileContent());
+			stream.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

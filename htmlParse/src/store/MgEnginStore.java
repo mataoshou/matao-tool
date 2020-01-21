@@ -1,31 +1,27 @@
 package store;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import pojo.store.StoreItem;
 import pojo.store.WordItem;
-import util.Convert;
+import store.config.FileConfig;
+import store.unit.ContentUnit;
 
 public class MgEnginStore
 {
-	//文件存储根目录
-	File root =null;
-
 	
 	public void setRoot(File root)
 	{
-		this.root = root;
+		FileConfig.root = root;
 	}
 	
 	public void setFileHouese(String fileName)
 	{
-		this.fileHouse = fileName;
+		FileConfig.fileHouse = fileName;
 	}
-	//存储文件配置文件
-	String fileHouse ="FileHouse.xml";
+	
 
 	/**
 	 * 启动
@@ -36,6 +32,8 @@ public class MgEnginStore
 			try
 			{
 				loadStore();
+				MgEnginTask task = new MgEnginTask();
+				task.start();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -45,10 +43,10 @@ public class MgEnginStore
 	}
 	
 	//获取word对应对象的内容
-	public List<Map> getWords(String key)
+	public Map<String,Map> getWords(String key)
 	{
 		WordItem word = WordCache.single().getItem(key);
-		List<Map> result = new ArrayList();
+		Map<String,Map> result = new HashMap();
 		for(int i= 0;i<word.getsIds().size();i++)
 		{
 			if(word.getsIds().size()>i)
@@ -56,8 +54,9 @@ public class MgEnginStore
 				try
 				{
 					StoreItem item = ItemCache.single().getItem(word.getsIds().get(i));
-					Map content =ItemCache.single().getContent(item);
-					result.add(content);
+					ContentUnit unit = new ContentUnit(); 
+					Map content = unit.getContent();
+					result.put(word.getsIds().get(i), content);
 				} catch (Exception e)
 				{
 					e.printStackTrace();
@@ -74,16 +73,21 @@ public class MgEnginStore
 	 */
 	private void loadStore() throws Exception
 	{
-		FileCache.single().load(root, fileHouse);
-		ItemCache.single().loadCache(root);
-		WordCache.single().loadCache(root);
+		FileCache.single().load(FileConfig.root, FileConfig.fileHouse);
+		ItemCache.single().loadCache(FileConfig.root);
+		WordCache.single().loadCache(FileConfig.root);
 	}
 	
 	
 	/**
-	 * 存储到磁盘持久化
+	 * 保存内容
+	 * @param content
 	 */
-	private void saveStore()
+	public void save(Map<String,String> content) {
+		
+	}
+	
+	public void query(String... keys)
 	{
 		
 	}

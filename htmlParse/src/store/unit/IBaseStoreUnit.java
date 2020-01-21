@@ -1,5 +1,8 @@
 package store.unit;
 
+import java.io.File;
+import java.util.Map;
+
 public abstract class IBaseStoreUnit<T>
 {
 	
@@ -29,5 +32,11 @@ public abstract class IBaseStoreUnit<T>
 	
 	
 	public abstract boolean isFull();
+	
+	
+	public abstract String getId();
+	
+	
+	public abstract void persist();
 	
 }

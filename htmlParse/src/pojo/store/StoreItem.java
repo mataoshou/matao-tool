@@ -22,6 +22,10 @@ public class StoreItem
 
 	private Map<String,String> content = new HashMap();
 	
+	private int mod = 0;
+	
+	
+	
 	public String getId()
 	{
 		return id;
@@ -33,6 +37,17 @@ public class StoreItem
 	}
 
 	
+	
+	public int getMod()
+	{
+		return mod;
+	}
+
+	public void setMod(int mod)
+	{
+		this.mod = mod;
+	}
+
 	public String getStoreName()
 	{
 		return storeName;
