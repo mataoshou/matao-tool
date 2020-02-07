@@ -3,7 +3,7 @@ package pojo.store;
 public class FileItem
 {
 	//唯一标识
-	private int id;
+	private String id;
 	
 	private String filePath;
 	
@@ -19,15 +19,27 @@ public class FileItem
 	//文件是否存在  0 不存在  1存在
 	private int isExit = 1;
 	
+	private long reserve =0;
+	
+	
+	public void addReserve(int space)
+	{
+		reserve += space;
+	}
+	
+	public long getReserve() {
+		return reserve;
+	}
+
 	//word  item  content
 	private String type;
 
-	public int getId()
+	public String getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(String id)
 	{
 		this.id = id;
 	}

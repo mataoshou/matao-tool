@@ -36,7 +36,11 @@ public abstract class IBaseStoreUnit<T>
 	
 	public abstract String getId();
 	
-	
+	/**
+	 * 存储
+	 */
 	public abstract void persist();
+	
+	public abstract int getLength();
 	
 }

@@ -1,5 +1,6 @@
 package pojo.store;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class WordItem
@@ -14,7 +15,7 @@ public class WordItem
 	
 	private String word;
 	
-	private List<String> sIds;
+	private List<String> sIds = new ArrayList();
 	
 	private int max;
 	

@@ -69,7 +69,7 @@ public class WordUnit extends IBaseStoreUnit<WordItem>
 	public void persist()
 	{
 		try {
-			File file = new File(FileConfig.fileHouse,this.item.getFileName());
+			File file = new File(FileConfig.root,this.item.getFileName());
 			RandomAccessFile stream = new RandomAccessFile(file, "rw");
 			stream.seek(item.getBegin());
 			
@@ -93,6 +93,11 @@ public class WordUnit extends IBaseStoreUnit<WordItem>
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public int getLength() {
+		return buildFileContent().length();
 	}
 
 }

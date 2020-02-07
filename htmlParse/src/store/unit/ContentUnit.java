@@ -95,7 +95,7 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 	{
 		try
 		{
-			File file = new File(FileConfig.fileHouse,this.item.getFileName());
+			File file = new File(FileConfig.root,this.item.getFileName());
 			RandomAccessFile stream = new RandomAccessFile(file, "rw");
 			stream.seek(item.getBegin());
 			if(isFull())
@@ -118,6 +118,11 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 		{
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int getLength() {
+		return buildFileContent().length();
 	}
 
 

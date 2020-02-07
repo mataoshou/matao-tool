@@ -54,7 +54,7 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 	public void persist()
 	{
 		try {
-			File file = new File(FileConfig.fileHouse,this.item.getFileName());
+			File file = new File(FileConfig.root,this.item.getFileName());
 			RandomAccessFile stream = new RandomAccessFile(file, "rw");
 			stream.seek(item.getBegin());
 			stream.writeBytes(buildFileContent());
@@ -64,6 +64,11 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public int getLength() {
+		return buildFileContent().length();
 	}
 
 }

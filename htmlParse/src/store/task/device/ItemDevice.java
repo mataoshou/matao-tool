@@ -1,28 +1,37 @@
-package store;
+package store.task.device;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import log.Logger;
 import pojo.store.FileItem;
+import store.FileCache;
 import store.constant.FileType;
-import store.task.ContentTask;
-import store.task.IBaseTask;
-import store.task.ItemTask;
-import store.task.WordTask;
+import store.task.item.ContentTask;
+import store.task.item.IBaseTask;
+import store.task.item.ItemTask;
+import store.task.item.WordTask;
 import store.unit.IBaseStoreUnit;
 
-public class PoolEngin
+public class ItemDevice
 {
 	
-	public static PoolEngin engin = new PoolEngin();
+	public static ItemDevice engin = null;
 	
-	public static PoolEngin single()
+	public static ItemDevice single()
 	{
+		
+		if(engin==null)
+		{
+			engin = new ItemDevice();
+			engin.load();
+		}
+		
 		return engin;
 	}
 	
-	
+	Logger log = new Logger(this.getClass());
 	
 	private Map<String,IBaseTask> threadMap = new HashMap();
 	
@@ -71,9 +80,10 @@ public class PoolEngin
 		}
 		threadMap.put(item.getFileName(), val);
 		
+		log.log("添加文件存储任务",item.getFileName());
 	}
 	
-	public void startWork()
+	public void run()
 	{
 		for(Entry<String,IBaseTask> entry :threadMap.entrySet())
 		{
@@ -81,6 +91,8 @@ public class PoolEngin
 			if(!val.isEmpty())
 			{
 				if(val.isAction())continue;
+				val.setEmpty();
+				log.log("启动持久化任务",entry.getKey());
 				Thread thread = new Thread(entry.getValue());
 				thread.start();
 			}

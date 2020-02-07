@@ -1,4 +1,4 @@
-package store.task;
+package store.task.item;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,7 +34,8 @@ public abstract class IBaseTask implements Runnable
 	@Override
 	public void run()
 	{
-		if(!action) return;
+		if(action) return;
+		setAction();
 		if(m_map.size()>0)
 		{
 			synchronized(this)
@@ -66,13 +67,23 @@ public abstract class IBaseTask implements Runnable
 	{
 		synchronized(this)
 		{
+			empty=false;
 			m_map.put(unit.getId(), unit);
 		}
 	}
 	
+	
+	boolean empty =true;
+	
+	public void setEmpty()
+	{
+		empty = true;
+	}
+	
+	
 	public boolean isEmpty()
 	{
-		if(m_map.size()>0)
+		if(m_map.size()>0&&!empty)
 		{
 			return false;
 		}

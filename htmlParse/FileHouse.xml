@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<items>
-		<item fileName ="mg_engin_1.mt" max="100" use="10" empty="10" conut="12"></item>
+		<item id="0001" fileName ="mg_engin_1.mt" max="100" use="10" empty="10"  count="12"></item>
 	</items>
 	<words>
-		<word id="00000001" fileName ="mg_engin_1.mt"></word>
+		<word id="0001" fileName ="mg_engin_1.mt" max="100" use="0" empty="100"  count="12"></word>
 	</words>
 	
-	<stores>
-		<store id="00000001" fileName ="mg_engin_1.mt"></store>
-	</stores>
+	<contents>
+		<content id="0001" fileName ="mg_engin_1.mt" max="100" use="0" empty="100" count="12"></content>
+	</contents>
 </root>

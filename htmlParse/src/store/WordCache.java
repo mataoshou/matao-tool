@@ -134,9 +134,23 @@ public class WordCache implements ICache<WordItem>
 			addNewItem(word,new String[] { id});
 		}
 		else {
-			item.addId(id);
+			
+			if(!item.getsIds().contains(id))
+			{
+				item.addId(id);
+			}
+			
 		}
 		mod++;
+	}
+	
+	
+	public void addId(String[] words,String id)
+	{
+		for(String word : words)
+		{
+			addId(word,id);
+		}
 	}
 	
 	public void saveCache(File root) {
@@ -172,6 +186,12 @@ public class WordCache implements ICache<WordItem>
 	public int getLength(WordItem item)
 	{
 		return (state_len + no_len*5+id_len*item.getsIds().size() +item.getWord().length());
+	}
+	
+	@Override
+	public void edit(String key, WordItem item) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

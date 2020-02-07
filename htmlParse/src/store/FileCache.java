@@ -10,6 +10,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
+import log.Logger;
 import pojo.store.FileItem;
 import store.config.FileConfig;
 import store.constant.FileConstant;
@@ -18,22 +19,22 @@ import util.DomUtil;
 
 public class FileCache
 {
-	Map<String,FileItem> items = new HashMap();
-	Map<String,FileItem> words = new HashMap();
-	Map<String,FileItem> contents = new HashMap();
+	public Map<String,FileItem> items = new HashMap();
+	public Map<String,FileItem> words = new HashMap();
+	public Map<String,FileItem> contents = new HashMap();
 	
 	public String itemEmpty  ="";
 	public String wordEmpty ="";
 	public String contentEmpty ="";
 	
-	private static FileCache one;
+	private static FileCache one = new FileCache();
 	
 	public static FileCache single()
 	{
 		return one;
 	}
 	
-	
+	Logger log = new Logger(this.getClass());
 	private FileCache() {
 		
 	}
@@ -99,7 +100,7 @@ public class FileCache
 	 */
 	private void initStore(File root ,String fileName) throws Exception
 	{
-		System.out.println("开始加载【存储文件信息】");
+		log.log("开始加载","存储文件信息");
 		File house = new File(root,fileName);
 		Document doc = DomUtil.getDocument(house);
 		
@@ -118,8 +119,7 @@ public class FileCache
 		items.put(iitem.getFileName(), iitem);
 		itemEmpty = iitem.getFileName();
 		
-		System.out.println("item完成，预留文件:"+itemEmpty);
-		
+		log.log("item文件加载完成","预留文件",itemEmpty);
 		List<Element> wordsEle = rootEle.element("words").elements("word");
 		for(Element ele: wordsEle)
 		{
@@ -132,9 +132,8 @@ public class FileCache
 		words.put(witem.getFileName(), witem);
 		wordEmpty = witem.getFileName();
 		
-		System.out.println("word完成，预留文件:"+wordEmpty);
-		
-		List<Element> storeEle = rootEle.element("stores").elements("store");
+		log.log("word文件加载完成","预留文件",wordEmpty);
+		List<Element> storeEle = rootEle.element("contents").elements("content");
 		for(Element ele: storeEle)
 		{
 			FileItem item =getFileItem(ele);
@@ -146,20 +145,22 @@ public class FileCache
 		contents.put(citem.getFileName(), citem);
 		contentEmpty = citem.getFileName();
 		
-		System.out.println("content完成，预留文件:"+contentEmpty);
+//		System.out.println("content完成，预留文件:"+contentEmpty);
+		log.log("content文件加载完成","预留文件",contentEmpty);
 		
-		System.out.println("完成加载【存储文件信息】");
+		log.log("完成加载","存储文件信息");
 	}
 	
 	private FileItem getFileItem(Element ele)
 	{
 		FileItem item = new FileItem();
+		item.setId(ele.attributeValue("id"));
 		item.setFilePath(FileConfig.root.getPath());
 		item.setFileName(ele.attributeValue("fileName"));
 		item.setMax(Long.valueOf(ele.attributeValue("max")));
 		item.setUsed(Long.valueOf(ele.attributeValue("use")));
 		item.setEmpty(Long.valueOf(ele.attributeValue("empty")));
-		item.setStoreCount(Integer.valueOf(ele.attributeValue("conut")));
+		item.setStoreCount(Integer.valueOf(ele.attributeValue("count")));
 		
 		return item;
 	}
