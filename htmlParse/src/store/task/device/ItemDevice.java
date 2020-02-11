@@ -6,8 +6,8 @@ import java.util.Map.Entry;
 
 import log.Logger;
 import pojo.store.FileItem;
-import store.FileCache;
 import store.constant.FileType;
+import store.task.cache.FileCache;
 import store.task.item.ContentTask;
 import store.task.item.IBaseTask;
 import store.task.item.ItemTask;
@@ -78,7 +78,7 @@ public class ItemDevice
 			case FileType.FILE_TYPE_ITEM:val =new ItemTask();break;
 			case FileType.FILE_TYPE_WORD:val =new WordTask();break;
 		}
-		threadMap.put(item.getFileName(), val);
+		threadMap.put(item.getId(), val);
 		
 		log.log("添加文件存储任务",item.getFileName());
 	}

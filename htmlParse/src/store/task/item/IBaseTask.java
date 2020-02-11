@@ -8,10 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import pojo.store.FileItem;
 import store.unit.IBaseStoreUnit;
 
-public abstract class IBaseTask implements Runnable
+public abstract class IBaseTask<T extends IBaseStoreUnit> implements Runnable
 {
 
-	public Map<String,IBaseStoreUnit> m_map= new ConcurrentHashMap();
+	public Map<String,T> m_map= new ConcurrentHashMap();
 	
 	
 	private FileItem fitem;
@@ -40,9 +40,9 @@ public abstract class IBaseTask implements Runnable
 		{
 			synchronized(this)
 			{
-				Map<String,IBaseStoreUnit> tmp= m_map;
+				Map<String,T> tmp= m_map;
 				m_map = new ConcurrentHashMap();
-				for(Entry<String,IBaseStoreUnit> entry : tmp.entrySet())
+				for(Entry<String,T> entry : tmp.entrySet())
 				{
 					try {
 						System.out.println("开始处理任务:"+entry.getKey());
@@ -60,10 +60,10 @@ public abstract class IBaseTask implements Runnable
 		action = false;
 	}
 	
-	public abstract void execute(IBaseStoreUnit unit);
+	public abstract void execute(T unit);
 	
 	
-	public void addTask(IBaseStoreUnit unit)
+	public void addTask(T unit)
 	{
 		synchronized(this)
 		{

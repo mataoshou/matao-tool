@@ -1,21 +1,15 @@
-package store;
+package store.task.cache;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import pojo.store.FileItem;
-import pojo.store.StoreItem;
 import pojo.store.WordItem;
-import store.unit.ItemUnit;
 import store.unit.WordUnit;
-import util.Shift;
 
-public class WordCache implements ICache<WordItem>
+public class WordCache
 {
 	
 	private static WordCache one = new WordCache();
@@ -37,74 +31,23 @@ public class WordCache implements ICache<WordItem>
 	{
 		
 		this.mod=0;
-
-		StoreUtil util = new StoreUtil();
 		
 		for(FileItem file :FileCache.single().words.values())
 		{
 			try {
 				File itemFile = new File(root,file.getFileName());
 				
-				FileInputStream  input = new FileInputStream(itemFile);
-				
+//				FileInputStream  input = new FileInputStream(itemFile);
+				RandomAccessFile input = new RandomAccessFile(itemFile, "rw");
 				while(true)
 				{
-					WordItem item = new WordItem();
+					if(input.getFilePointer()>=itemFile.length())break;
+					WordUnit unit = new WordUnit();
+					unit.readItem(input, file.getId());
 					
-					byte[] bs = util.getByte(input, state_len);
-					
-					if(bs==null)break;
-					//前8位表示是否继续使用
-					int state =Integer.valueOf(new String(bs));
-					
-					//8*8 存储存储起始位置
-					bs = util.getByte(input, no_len);
-					long begin =Long.valueOf( new String(bs));
-					
-					//8*8 存储存储结束位置
-					bs = util.getByte(input, no_len);
-					long end =Long.valueOf( new String(bs));
-					
-					//8*8 存储存储长度
-					bs = util.getByte(input, no_len);
-					int length = Integer.valueOf( new String(bs));					
-					
-					
-					if(state==0)
-					{
-						bs= util.getByte(input, length-(no_len*3)-state_len);
-						continue;
-					}
-					
-					item.setFileName(file.getFileName());
-					item.setBegin(begin);
-					item.setEnd(end);
-					item.setLength(length);
-					
-					//8*8 存储 最大id个数
-					bs = util.getByte(input, no_len);
-					item.setMax(Integer.valueOf( new String(bs)));
-					
-					//8*8 存储  实际使用id个数
-					bs = util.getByte(input, no_len);
-					item.setCount(Integer.valueOf( new String(bs)));
-					
-					//计算存储索引word的长度
-					int wordLength = item.getLength() - (item.getMax()* no_len -8);
-					bs = util.getByte(input, wordLength);
-					
-					item.setWord(new String(bs,"UTF-8"));
-					
-					for(int i=0;i<item.getMax();i++)
-					{
-						bs = util.getByte(input, id_len);
-						if(i<item.getCount()) {
-							item.addId(new String(bs));
-						}
-					}
-					m_map.put(item.getWord(), item);
+					m_map.put(unit.getItem().getWord(), unit.getItem());
 				}
-				
+				input.close();
 			}
 			catch(Exception e)
 			{
@@ -188,7 +131,6 @@ public class WordCache implements ICache<WordItem>
 		return (state_len + no_len*5+id_len*item.getsIds().size() +item.getWord().length());
 	}
 	
-	@Override
 	public void edit(String key, WordItem item) {
 		// TODO Auto-generated method stub
 		

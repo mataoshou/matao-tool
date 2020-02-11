@@ -1,6 +1,11 @@
 package store;
 
+import java.io.IOException;
+
+import org.dom4j.DocumentException;
+
 import log.Logger;
+import store.task.cache.FileCache;
 import store.task.device.CacheDevice;
 import store.task.device.ItemDevice;
 
@@ -29,6 +34,14 @@ public class MgDeviceStart extends Thread
 		{
 			CacheDevice.single().run();
 			ItemDevice.single().run();
+			
+			try {
+				FileCache.single().saveFile();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			} catch (DocumentException e1) {
+				e1.printStackTrace();
+			}
 			
 			try {
 				Thread.sleep(500);

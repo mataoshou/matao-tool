@@ -57,6 +57,23 @@ public class Shift
 		str=str.substring(0,length);
 		return str;
 	}
+	
+	/**
+	 * 左侧补零
+	 * length  返回字符串长度   
+	 * s的长度超过length,返回s;小于length，左侧不足补零
+	 */
+	public String rightZeroShift(Number no,int length)
+	{
+		String s = String.valueOf(no);
+		if(s.length()>length)
+			return s;
+		
+		StringBuilder builder = new StringBuilder(s.length()+length);
+		String str=s+getZero(length);
+		str=str.substring(0,length);
+		return str;
+	}
 //	public static void main(String [] args)
 //	{
 //		System.out.println(leftZeroShift("qqqfff",10));

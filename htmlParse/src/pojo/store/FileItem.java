@@ -1,11 +1,11 @@
 package pojo.store;
 
+import store.task.cache.FileCache;
+
 public class FileItem
 {
 	//唯一标识
 	private String id;
-	
-	private String filePath;
 	
 	private String fileName;
 	//最大存储空间
@@ -21,18 +21,21 @@ public class FileItem
 	
 	private long reserve =0;
 	
+	//word  item  content
+	private String type;
 	
 	public void addReserve(int space)
 	{
 		reserve += space;
+		
+		FileCache.single().modAdd();
 	}
 	
 	public long getReserve() {
 		return reserve;
 	}
 
-	//word  item  content
-	private String type;
+
 
 	public String getId()
 	{
@@ -74,16 +77,6 @@ public class FileItem
 	public void setFileName(String fileName)
 	{
 		this.fileName = fileName;
-	}
-
-	public String getFilePath()
-	{
-		return filePath;
-	}
-
-	public void setFilePath(String filePath)
-	{
-		this.filePath = filePath;
 	}
 
 	public long getMax()

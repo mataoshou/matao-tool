@@ -2,6 +2,7 @@ package store;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.security.Key;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -41,7 +42,31 @@ public class StoreUtil
 		{
 			index = input.read(bs, no, length-no);
 			if(index==-1)break;
-			no+=no;
+			no+=index;
+		}
+		if(no==length) return bs;
+		if(index==-1) 
+		{
+			System.out.println("文件流读取结束");
+			return null;
+			
+		}
+		throw new Exception("读取文件内容异常！！");
+	}
+	
+	
+	//获取文件流指定内容
+	public byte[] getByte(RandomAccessFile input,int length) throws Exception
+	{
+		if(input==null) return null;
+		byte[] bs = new byte[length];
+		int no =0;
+		int index =0;
+		while(no<length)
+		{
+			index = input.read(bs, no, length-no);
+			if(index==-1)break;
+			no+=index;
 		}
 		if(no==length) return bs;
 		if(index==-1) 

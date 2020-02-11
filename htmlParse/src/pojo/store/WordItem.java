@@ -21,7 +21,7 @@ public class WordItem
 	
 	private int mod=0;
 	
-	private String fileName;
+	private String fileId;
 
 	public int getCount()
 	{
@@ -35,14 +35,12 @@ public class WordItem
 	
 	
 
-	public String getFileName()
-	{
-		return fileName;
+	public String getFileId() {
+		return fileId;
 	}
 
-	public void setFileName(String fileName)
-	{
-		this.fileName = fileName;
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
 	}
 
 	public int getMod()

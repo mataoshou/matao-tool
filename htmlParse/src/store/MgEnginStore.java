@@ -9,6 +9,9 @@ import pojo.store.StoreItem;
 import pojo.store.WordItem;
 import store.config.FileConfig;
 import store.constant.CacheConstant;
+import store.task.cache.FileCache;
+import store.task.cache.ItemCache;
+import store.task.cache.WordCache;
 import store.task.device.CacheDevice;
 import store.unit.ContentUnit;
 
@@ -73,8 +76,6 @@ public class MgEnginStore
 				{
 					StoreItem item = ItemCache.single().getItem(word.getsIds().get(i));
 					ContentUnit unit = new ContentUnit(); 
-					Map content = unit.getContent();
-					result.put(word.getsIds().get(i), content);
 				} catch (Exception e)
 				{
 					e.printStackTrace();
@@ -128,7 +129,7 @@ public class MgEnginStore
 		
 		
 		store.setFileHouese("FileHouse.xml");
-		store.setRoot(new File("D:\\source\\tool\\matao-tool\\htmlParse"));
+		store.setRoot(new File("D:\\source\\tool\\matao-tool\\warehouse"));
 		
 		store.startUp();
 		
@@ -138,11 +139,11 @@ public class MgEnginStore
 		map.put("matao", "昨天");
 		
 		store.save(map);
-		
-		Thread.sleep(4000);
-		
-		map.put("matao2", "今天");
-		
-		store.save(map);
+//		
+//		Thread.sleep(4000);
+//		
+//		map.put("matao2", "今天");
+//		
+//		store.save(map);
 	}
 }

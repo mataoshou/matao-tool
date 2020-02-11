@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<root>
+  <items>
+    <item id="00010001" fileName="itemhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
+  </items>
+  <words>
+    <word id="00030001" fileName="wordhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
+  </words>
+  <contents>
+    <content id="00020001" fileName="contenthouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
+  </contents>
+</root>

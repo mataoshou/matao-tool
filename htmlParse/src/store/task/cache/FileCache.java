@@ -1,13 +1,15 @@
-package store;
+package store.task.cache;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 
 import log.Logger;
@@ -16,6 +18,7 @@ import store.config.FileConfig;
 import store.constant.FileConstant;
 import store.constant.FileType;
 import util.DomUtil;
+import util.Shift;
 
 public class FileCache
 {
@@ -112,12 +115,15 @@ public class FileCache
 		{
 			FileItem item =getFileItem(ele);
 			item.setType(FileType.FILE_TYPE_ITEM);
-			items.put(item.getFileName(),item);
+			if(isExist(item))
+			{
+				items.put(item.getId(),item);
+			}
 		}
 		
 		FileItem iitem  = getNewFile(FileType.FILE_TYPE_ITEM);
-		items.put(iitem.getFileName(), iitem);
-		itemEmpty = iitem.getFileName();
+		items.put(iitem.getId(), iitem);
+		itemEmpty = iitem.getId();
 		
 		log.log("item文件加载完成","预留文件",itemEmpty);
 		List<Element> wordsEle = rootEle.element("words").elements("word");
@@ -125,12 +131,16 @@ public class FileCache
 		{
 			FileItem item =getFileItem(ele);
 			item.setType(FileType.FILE_TYPE_WORD);
-			words.put(item.getFileName(),item);
+			
+			if(isExist(item))
+			{
+				words.put(item.getId(),item);
+			}
 		}
 		
 		FileItem witem  = getNewFile(FileType.FILE_TYPE_WORD);
-		words.put(witem.getFileName(), witem);
-		wordEmpty = witem.getFileName();
+		words.put(witem.getId(), witem);
+		wordEmpty = witem.getId();
 		
 		log.log("word文件加载完成","预留文件",wordEmpty);
 		List<Element> storeEle = rootEle.element("contents").elements("content");
@@ -138,12 +148,15 @@ public class FileCache
 		{
 			FileItem item =getFileItem(ele);
 			item.setType(FileType.FILE_TYPE_CONTENT);
-			contents.put(item.getFileName(),item);
+			if(isExist(item))
+			{
+				contents.put(item.getId(),item);
+			}
 		}
 		
 		FileItem citem  = getNewFile(FileType.FILE_TYPE_CONTENT);
-		contents.put(citem.getFileName(), citem);
-		contentEmpty = citem.getFileName();
+		contents.put(citem.getId(), citem);
+		contentEmpty = citem.getId();
 		
 //		System.out.println("content完成，预留文件:"+contentEmpty);
 		log.log("content文件加载完成","预留文件",contentEmpty);
@@ -151,11 +164,20 @@ public class FileCache
 		log.log("完成加载","存储文件信息");
 	}
 	
+	private boolean isExist(FileItem item)
+	{
+		File file = new File(FileConfig.root,item.getFileName());
+		if(file.exists())
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	private FileItem getFileItem(Element ele)
 	{
 		FileItem item = new FileItem();
 		item.setId(ele.attributeValue("id"));
-		item.setFilePath(FileConfig.root.getPath());
 		item.setFileName(ele.attributeValue("fileName"));
 		item.setMax(Long.valueOf(ele.attributeValue("max")));
 		item.setUsed(Long.valueOf(ele.attributeValue("use")));
@@ -171,13 +193,13 @@ public class FileCache
 		switch(type)
 		{
 			case FileType.FILE_TYPE_ITEM: {
-				int no = items.size();
+				int no = items.size()+1;
 				while(true)
 				{
-					String fileName= "itemhouse_"+no;
+					String fileName= "itemhouse_"+no +".mt";
 					if(items.get(fileName)==null)
 					{
-						return buildEmpty(FileType.FILE_TYPE_ITEM, fileName);
+						return buildEmpty(FileType.FILE_TYPE_ITEM, fileName,no);
 					}
 					else {
 						no++;
@@ -185,13 +207,13 @@ public class FileCache
 				}
 			}
 			case FileType.FILE_TYPE_WORD: {
-				int no = words.size();
+				int no = words.size()+1;
 				while(true)
 				{
-					String fileName= "wordhouse_"+no;
+					String fileName= "wordhouse_"+no+".mt";
 					if(words.get(fileName)==null)
 					{
-						return buildEmpty(FileType.FILE_TYPE_WORD, fileName);
+						return buildEmpty(FileType.FILE_TYPE_WORD, fileName,no);
 					}
 					else {
 						no++;
@@ -200,13 +222,13 @@ public class FileCache
 				}
 			}
 			case FileType.FILE_TYPE_CONTENT: {
-				int no = contents.size();
+				int no = contents.size()+1;
 				while(true)
 				{
-					String fileName= "contenthouse_"+no;
+					String fileName= "contenthouse_"+no+".mt";
 					if(contents.get(fileName)==null)
 					{
-						return buildEmpty(FileType.FILE_TYPE_CONTENT, fileName);
+						return buildEmpty(FileType.FILE_TYPE_CONTENT, fileName,no);
 					}
 					else {
 						no++;
@@ -217,17 +239,80 @@ public class FileCache
 		}
 	}
 	
-	private FileItem buildEmpty(String type,String fileName)
+	private FileItem buildEmpty(String type,String fileName,int id)
 	{
+		Shift shift = new Shift();
 		FileItem item = new FileItem();
+		item.setId(shift.leftZeroShift((getPre(type)*10000)+id, FileConstant.LENGTH_NO));
 		item.setFileName(fileName);
-		item.setFilePath(FileConfig.root.getPath());
 		item.setMax(FileConstant.FILE_STORE_MAX_SPACE);
 		item.setEmpty(FileConstant.FILE_STORE_MAX_SPACE);
 		item.setUsed(0);
 		item.setIsExit(0);
-		item.setType(FileType.FILE_TYPE_CONTENT);
+		item.setType(type);
 		item.setStoreCount(0);
 		return item;
+	}
+	
+	public int getPre(String type)
+	{
+		switch(type)
+		{
+			case FileType.FILE_TYPE_ITEM :return 1;
+			case FileType.FILE_TYPE_CONTENT :return 2;
+			case FileType.FILE_TYPE_WORD :return 3;
+		}
+		
+		return 9;
+	}
+	
+	
+	public void saveFile() throws IOException, DocumentException
+	{
+		if(mod==0)return;
+		
+		File house = new File(FileConfig.root,FileConfig.fileHouse);
+		
+		Element root = DocumentHelper.createElement("root");;
+		
+		
+		
+		Map<String,FileItem>[] maps =new Map[] {
+				items,words,contents
+		};
+		
+		String[] names = new String[] {"item","word","content"};
+		
+		for(int i=0;i<3;i++)
+		{
+			Map<String,FileItem> map = maps[i];
+			Element pEle = DocumentHelper.createElement(names[i]  +"s");
+			for(Entry<String,FileItem> entry:map.entrySet())
+			{
+				FileItem fitem = entry.getValue();
+				
+				Element ele = DocumentHelper.createElement(names[i]);
+				ele.addAttribute("id", fitem.getId());
+				ele.addAttribute("fileName", fitem.getFileName());
+				ele.addAttribute("max", String.valueOf(fitem.getMax()));
+				ele.addAttribute("use", String.valueOf(fitem.getUsed()));
+				ele.addAttribute("empty", String.valueOf(fitem.getEmpty()));
+				ele.addAttribute("count", String.valueOf(fitem.getStoreCount()));
+				
+				pEle.add(ele);
+			}
+			root.add(pEle);
+		}
+		
+		Document doc = DocumentHelper.createDocument();
+		doc.add(root);
+		DomUtil.writeDocument(doc, new File(FileConfig.root,FileConfig.fileHouse));
+	}
+	
+	private int mod =0;
+	
+	public void modAdd()
+	{
+		mod++;
 	}
 }

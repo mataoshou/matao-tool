@@ -60,7 +60,7 @@ public class GroupTask implements Runnable
 			driver.manage().window().maximize();//浏览器最大化
 		    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);//超时等待30秒
 			
-		    for(int b = sitem.getBegin();b<sitem.getEnd();b=b+sitem.getInterval())
+		    for(int b = sitem.getBegin();b<=sitem.getEnd();b=b+sitem.getInterval())
 		    {
 		    	String url =sitem.getSrc();
 		    	for(String param : sitem.getParams())

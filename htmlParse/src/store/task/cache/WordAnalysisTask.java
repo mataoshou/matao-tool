@@ -6,8 +6,6 @@ import java.util.Map.Entry;
 
 import pojo.store.FileItem;
 import pojo.store.StoreItem;
-import store.FileCache;
-import store.WordCache;
 import store.constant.FileType;
 import store.divide.DivideWord;
 import store.task.device.ItemDevice;
@@ -43,13 +41,13 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 				FileItem fitem = FileCache.single().getEmpty(FileType.FILE_TYPE_CONTENT, unit.getLength());
 				
 				long begin = fitem.getUsed()+fitem.getReserve();
-				fitem.addReserve(item.getLength());
+				fitem.addReserve(unit.getLength());
 				
-				item.setBegin(begin);
-				item.setLength(unit.getLength());
-				item.setEnd(item.getBegin() + item.getLength());
+				item.setCbegin(begin);
+				item.setClength(unit.getLength());
+				item.setCend(item.getCbegin() + item.getClength());
 				
-				item.setStoreName(fitem.getFileName());
+				item.setStoreId(fitem.getId());
 				
 				
 				ItemDevice.single().addTask(fitem.getFileName(), unit);
@@ -60,8 +58,9 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 				
 				fitem = FileCache.single().getEmpty(FileType.FILE_TYPE_ITEM, iunit.getLength());
 				
-				item.setFileName(fitem.getFileName());
-				
+				item.setFileId(fitem.getId());
+				item.setIbegin(fitem.getUsed()+fitem.getReserve());
+				item.setIlength(iunit.getLength());
 				
 				
 				

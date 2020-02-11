@@ -1,20 +1,18 @@
-package store;
+package store.task.cache;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.List;
+import java.io.RandomAccessFile;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import log.Logger;
 import pojo.store.FileItem;
 import pojo.store.StoreItem;
-import store.constant.FileConstant;
+import store.StoreUtil;
+import store.unit.ItemUnit;
 import util.StringUtil;
 
-public class ItemCache implements ICache<StoreItem>
+public class ItemCache 
 {
 	
 	private static ItemCache one = new ItemCache();
@@ -46,35 +44,25 @@ public class ItemCache implements ICache<StoreItem>
 					log.log("文件不存在",file.getFileName());
 					continue;
 				}
-				FileInputStream  input = new FileInputStream(itemFile);
-				
+//				FileInputStream  input = new FileInputStream(itemFile);
+				RandomAccessFile input = new RandomAccessFile(itemFile, "rw");
 				while(true)
 				{
-					StoreItem item = new StoreItem();
-					byte[] bs = util.getByte(input,FileConstant.LENGTH_ID);
-					item.setId(new String(bs));
+					if(input.getFilePointer()>=itemFile.length())break;
+					ItemUnit unit = new ItemUnit();
+					unit.readItem(input, file.getId());
 					
-					bs = util.getByte(input, FileConstant.LENGTH_NO);
-					item.setBegin(Long.valueOf( new String(bs)));
-					bs = util.getByte(input, FileConstant.LENGTH_NO);
-					item.setEnd(Long.valueOf( new String(bs)));
-					bs = util.getByte(input, FileConstant.LENGTH_NO);
-					item.setLength(Integer.valueOf( new String(bs)));
+					m_map.put(unit.getId(), unit.getItem());
 					
-					bs = util.getByte(input, FileConstant.LENGTH_NO);
-					item.setStoreName(new String(bs));
-
-					item.setFileName(file.getFileName());
-					
-					m_map.put(item.getId(), item);
-					
-					log.log("加载元素单元",item.getId());
+					log.log("加载元素单元",unit.getId());
 				}
+				input.close();
 				
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
+				
 			}
 			log.log("完成读取","元素存储",file.getFileName());
 		}
@@ -104,7 +92,6 @@ public class ItemCache implements ICache<StoreItem>
 		
 	}
 
-	@Override
 	public void edit(String key, StoreItem item) {
 		StringUtil util = new StringUtil();
 		

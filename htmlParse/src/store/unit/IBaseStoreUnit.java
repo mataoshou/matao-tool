@@ -1,16 +1,19 @@
 package store.unit;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.RandomAccessFile;
 import java.util.Map;
+
+import log.Logger;
 
 public abstract class IBaseStoreUnit<T>
 {
 	
 	T item;
 	
-	int idLen = 32;//id长度
-	int noLen = 8;//数字长度
-	int stateLen =1;//状态长度
+	Logger log = new Logger(this.getClass());
 	
 	public void setItem(T t)
 	{
@@ -42,5 +45,8 @@ public abstract class IBaseStoreUnit<T>
 	public abstract void persist();
 	
 	public abstract int getLength();
+	
+	
+	public abstract void readItem(RandomAccessFile stream,String fileId) throws Exception;
 	
 }

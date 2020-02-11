@@ -10,15 +10,20 @@ public class StoreItem
 	
 	private String name;
 	
-	//
-	private long begin;
-	private long end;
-	private int length;
+	private long ibegin;
+	private long iend;
+	private long ilength;
 	
-	private String fileName;
+	
+	//
+	private long cbegin;
+	private long cend;
+	private int clength;
+	
+	private String fileId;
 	
 	//32字节  存储文件名称
-	private String storeName;
+	private String storeId;
 
 	private Map<String,String> content = new HashMap();
 	
@@ -48,15 +53,6 @@ public class StoreItem
 		this.mod = mod;
 	}
 
-	public String getStoreName()
-	{
-		return storeName;
-	}
-
-	public void setStoreName(String storeName)
-	{
-		this.storeName = storeName;
-	}
 
 	public String getName()
 	{
@@ -68,44 +64,54 @@ public class StoreItem
 		this.name = name;
 	}
 
-	public long getBegin()
-	{
-		return begin;
+	
+
+	public long getIbegin() {
+		return ibegin;
 	}
 
-	public void setBegin(long begin)
-	{
-		this.begin = begin;
+	public void setIbegin(long ibegin) {
+		this.ibegin = ibegin;
 	}
 
-	public long getEnd()
-	{
-		return end;
+	public long getIend() {
+		return iend;
 	}
 
-	public void setEnd(long end)
-	{
-		this.end = end;
+	public void setIend(long iend) {
+		this.iend = iend;
 	}
 
-	public int getLength()
-	{
-		return length;
+	public long getIlength() {
+		return ilength;
 	}
 
-	public void setLength(int length)
-	{
-		this.length = length;
+	public void setIlength(long ilength) {
+		this.ilength = ilength;
 	}
 
-	public String getFileName()
-	{
-		return fileName;
+	public long getCbegin() {
+		return cbegin;
 	}
 
-	public void setFileName(String fileName)
-	{
-		this.fileName = fileName;
+	public void setCbegin(long cbegin) {
+		this.cbegin = cbegin;
+	}
+
+	public long getCend() {
+		return cend;
+	}
+
+	public void setCend(long cend) {
+		this.cend = cend;
+	}
+
+	public int getClength() {
+		return clength;
+	}
+
+	public void setClength(int clength) {
+		this.clength = clength;
 	}
 
 	public Map<String, String> getContent()
@@ -123,4 +129,22 @@ public class StoreItem
 		this.content.put(key, value);
 	}
 
+	public String getFileId() {
+		return fileId;
+	}
+
+	public void setFileId(String fileId) {
+		this.fileId = fileId;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+
+	
+	
 }

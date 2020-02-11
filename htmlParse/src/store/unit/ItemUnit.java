@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.RandomAccessFile;
 
 import pojo.store.StoreItem;
+import store.StoreUtil;
 import store.config.FileConfig;
+import store.constant.FileConstant;
+import store.constant.FileType;
+import store.task.cache.FileCache;
 import util.Shift;
 
 public class ItemUnit extends IBaseStoreUnit<StoreItem>
@@ -15,13 +19,13 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 	{
 		Shift shift = new Shift();
 		
-		String result = "1";
+		String result = FileConstant.STATUS_ITEM_USE;
+		result += shift.leftZeroShift(item.getId(), FileConstant.LENGTH_ID);
+		result += shift.leftZeroShift(item.getCbegin(), FileConstant.LENGTH_NO);
+		result += shift.leftZeroShift(item.getCend(), FileConstant.LENGTH_NO);
+		result += shift.leftZeroShift(item.getClength(), FileConstant.LENGTH_NO);
 		
-		result += shift.leftZeroShift(item.getBegin(), noLen);
-		result += shift.leftZeroShift(item.getEnd(), noLen);
-		result += shift.leftZeroShift(item.getLength(), noLen);
-		
-		result += shift.leftZeroShift(item.getStoreName(), idLen);
+		result += shift.leftZeroShift(item.getStoreId(), FileConstant.LENGTH_NO);
 		
 		return result;
 	}
@@ -29,13 +33,13 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 	@Override
 	public long getBegin()
 	{
-		return this.getItem().getBegin();
+		return this.getItem().getIbegin();
 	}
 
 	@Override
 	public String getFileName()
 	{
-		return this.getItem().getFileName();
+		return FileCache.single().getItem(this.item.getFileId(), FileType.FILE_TYPE_ITEM).getFileName();
 	}
 
 	@Override
@@ -54,9 +58,9 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 	public void persist()
 	{
 		try {
-			File file = new File(FileConfig.root,this.item.getFileName());
+			File file = new File(FileConfig.root,getFileName());
 			RandomAccessFile stream = new RandomAccessFile(file, "rw");
-			stream.seek(item.getBegin());
+			stream.seek(item.getIbegin());
 			stream.writeBytes(buildFileContent());
 			stream.close();
 		}
@@ -69,6 +73,36 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 	@Override
 	public int getLength() {
 		return buildFileContent().length();
+	}
+
+	@Override
+	public void readItem(RandomAccessFile stream,String fileId) throws Exception {
+		
+		if(this.item==null)this.item = new StoreItem();
+		
+		StoreUtil util = new StoreUtil();
+		byte[] bs = util.getByte(stream,FileConstant.LENGTH_state);
+		int status = Integer.valueOf(new String(bs));
+		if(status==1)
+		{
+		}
+		bs = util.getByte(stream,FileConstant.LENGTH_ID);
+		item.setId(new String(bs));
+		
+		bs = util.getByte(stream, FileConstant.LENGTH_NO);
+		item.setCbegin(Long.valueOf( new String(bs)));
+		bs = util.getByte(stream, FileConstant.LENGTH_NO);
+		item.setCend(Long.valueOf( new String(bs)));
+		bs = util.getByte(stream, FileConstant.LENGTH_NO);
+		item.setClength(Integer.valueOf( new String(bs)));
+		
+		bs = util.getByte(stream, FileConstant.LENGTH_NO);
+		item.setStoreId(new String(bs));
+
+		item.setFileId(fileId);
+		
+		log.log("添加item",item.getId());
+		
 	}
 
 }
