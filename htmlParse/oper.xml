@@ -6,7 +6,7 @@
 		<group name="shineon" count="1" interval="5">
 			<base>
 				<!--src 浏览器中输入地址    source可以存在多个    其他参数暂不支持-->
-				<source src="http://m.pcpophb.com/gongkou/43843_##1.html"  begin ="2" end ="35" interval="1" params="##1"></source>
+				<source src=""  begin ="2" end ="35" interval="1" params="##1"></source>
 			</base>
 			<!-- item 参数说明   type（操作类型  input输入  click点击  dbclick双击  rightclick右击  move移动到  wait等待 close关闭浏览器）   interval（操作时间间隔 单位秒）-->
 			<!-- select 参数说明   type（选中类型  class类名  tag 选中dom  id选择id  name选择name-->
@@ -20,7 +20,7 @@
 				<item type="html" value="c:/222">
 					
 				</item>-->
-				<item type="img" value ="c:/111/">
+				<item type="img" value ="c:/111/111">
 					<select type="id" value ="imgString"></select>
 				</item>
 				
