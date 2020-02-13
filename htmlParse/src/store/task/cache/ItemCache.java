@@ -28,10 +28,18 @@ public class ItemCache
 	
 	Logger log = new Logger(this.getClass());
 	
-	//加载所有item的存储信息
+	
 	public void loadCache(File root)
 	{
 		this.mod=0;
+		
+		load(root);
+	}
+	
+	//加载所有item的存储信息
+	public void load(File root)
+	{
+		
 		
 		StoreUtil util = new StoreUtil();
 		for(FileItem file :FileCache.single().items.values())

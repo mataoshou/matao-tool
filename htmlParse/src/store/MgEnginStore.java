@@ -13,7 +13,7 @@ import store.task.cache.FileCache;
 import store.task.cache.ItemCache;
 import store.task.cache.WordCache;
 import store.task.device.CacheDevice;
-import store.unit.ContentUnit;
+import store.unit.ContentUnit;	
 
 public class MgEnginStore
 {
@@ -100,6 +100,15 @@ public class MgEnginStore
 		WordCache.single().loadCache(FileConfig.root);
 	}
 	
+	public StoreItem getContent(String key) throws Exception
+	{
+		ContentUnit unit = new ContentUnit();
+		unit.setItem(ItemCache.single().getItem(key));
+		unit.readItem(null, "");
+		
+		return unit.getItem();
+	}
+	
 	
 	/**
 	 * 保存内容
@@ -123,8 +132,10 @@ public class MgEnginStore
 	}
 	
 	
-	public static void main(String[] args) throws InterruptedException
+	public static void main(String[] args) throws Exception
 	{
+		
+		new File("D:\\source\\tool\\matao-tool\\warehouse").mkdirs();
 		MgEnginStore store = new MgEnginStore();
 		
 		
@@ -133,12 +144,19 @@ public class MgEnginStore
 		
 		store.startUp();
 		
-		
 		Thread.sleep(1000);
-		Map map = new HashMap();
-		map.put("matao", "昨天");
 		
-		store.save(map);
+		StoreItem item = store.getContent("5A3A58E444BD4A8EB642AEA458CEBF69");
+		System.out.println(item.getContent().keySet().iterator().next());
+		System.out.println(item.getContent().values().iterator().next());
+		
+//		
+		
+//		Thread.sleep(1000);
+//		Map map = new HashMap();
+//		map.put("matao", "昨天");
+		
+//		store.save(map);
 //		
 //		Thread.sleep(4000);
 //		

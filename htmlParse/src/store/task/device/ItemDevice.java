@@ -56,9 +56,9 @@ public class ItemDevice
 	/**
 	 *添加任务 
 	 */
-	public void addTask(String fileName,IBaseStoreUnit unit)
+	public void addTask(String fileId,IBaseStoreUnit unit)
 	{
-		IBaseTask val = threadMap.get(fileName);
+		IBaseTask val = threadMap.get(fileId);
 		val.addTask(unit);
 	}
 	

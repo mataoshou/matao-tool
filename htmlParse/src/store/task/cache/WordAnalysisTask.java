@@ -50,7 +50,7 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 				item.setStoreId(fitem.getId());
 				
 				
-				ItemDevice.single().addTask(fitem.getFileName(), unit);
+				ItemDevice.single().addTask(fitem.getId(), unit);
 				
 				
 				ItemUnit iunit = new ItemUnit();
@@ -64,8 +64,8 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 				
 				
 				
-				ItemDevice.single().addTask(fitem.getFileName(), iunit);
-				
+				ItemDevice.single().addTask(fitem.getId(), iunit);
+				ItemCache.single().add(item);
 				
 				DivideWord divide = new DivideWord();
 				
@@ -75,6 +75,8 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 					
 					WordCache.single().addId(keys, item.getId());
 				}
+				
+				
 				
 			}
 		}

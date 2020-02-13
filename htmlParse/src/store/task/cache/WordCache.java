@@ -96,10 +96,6 @@ public class WordCache
 		}
 	}
 	
-	public void saveCache(File root) {
-		this.mod =0;
-	}
-	
 	public WordItem getItem(String word)
 	{
 		return this.m_map.get(word);
@@ -111,29 +107,10 @@ public class WordCache
 		this.m_map.put(item.getWord(), item);
 	}
 	
-	public void save(File root,Map<String,FileItem> fileitems)
-	{
-		first:for(WordItem item : m_map.values())
-		{
-			if(item.getMod()>0)
-			{
-				WordUnit unit = new WordUnit();
-				unit.setItem(item);
-				
-				
-				
-			}
-		}
-	}
-	
 	public int getLength(WordItem item)
 	{
 		return (state_len + no_len*5+id_len*item.getsIds().size() +item.getWord().length());
 	}
 	
-	public void edit(String key, WordItem item) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

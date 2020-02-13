@@ -31,7 +31,7 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 		for(Entry<String,String> e : this.getItem().getContent().entrySet())
 		{
 			String val = util.encry(util.keys[1],String.format("%s=%s", e.getKey(),e.getValue()));
-			if(content.equals(""))
+			if(!content.equals(""))
 			{
 				content += "&";
 			}
@@ -116,7 +116,9 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 		
 		input.seek(item.getCbegin());
 		
-		byte[] bs = util.getByte(input, item.getClength());
+		byte[] bs = util.getByte(input, FileConstant.LENGTH_state);
+		
+		bs = util.getByte(input, item.getClength()-FileConstant.LENGTH_state);
 		String content = new String(bs);
 		content = util.decrypt(util.keys[0], content);
 		String[] values = content.split("&");

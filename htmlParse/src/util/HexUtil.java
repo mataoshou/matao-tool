@@ -32,7 +32,8 @@ public class HexUtil
 		int N = text.length() / 2;
 		byte[] data = new byte[N];
 		int k=0;
-		for(int i=0; i<text.length(); i+=2)
+		int length = text.length();
+		for(int i=0; i<length; i+=2)
 		{
 			String str = text.substring(i,i+2);
 			data[k++] = Short.valueOf(str, 16).byteValue();

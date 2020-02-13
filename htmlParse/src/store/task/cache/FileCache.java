@@ -50,7 +50,13 @@ public class FileCache
 	 */
 	public void load(File root ,String fileName) throws Exception
 	{
-		initStore(root,fileName);
+		try {
+			initStore(root,fileName);
+		}
+		catch(Exception e)
+		{
+			log.log("文件列表加载失败",e.getMessage());
+		}
 	}
 	/**
 	 * 获取文件对象

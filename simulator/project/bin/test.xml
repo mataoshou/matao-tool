@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<option count="" maxCount="">
+		<step type="begin" postion ="100,200"></step>
+		<step type="wait" postion ="100,50" value="3"></step>
+		
+		<step type="showDesktop" postion ="100,50" value="0"></step>
+		<step type="leftDoubleClick" postion ="200,50" value="0"></step>
+		<step type="wait" postion ="100,50" value="5"></step>
+		<step type="combinationKeyPress" postion ="100,50" value="alt,space,x"></step>
+		<step type="leftClick" postion ="260,50" value="0"></step>
+		<step type="text" postion ="100,50" value="http://10.0.127.237:88/uauth/"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
+		<step type="wait" postion ="100,50" value="5"></step>
+	</option>
+	
+	<option count="4" maxCount="">
+		<step type="keyPress" postion ="100,50" value="tab"></step>
+	</option>
+	
+	<option count="1" maxCount="">
+		<step type="text" postion ="100,50" value="suzigeng"></step>
+		<step type="keyPress" postion ="100,50" value="tab"></step>
+		<step type="textKeyPress" postion ="100,50" value="1qaz@WSX"></step>
+		<step type="keyPress" postion ="100,50" value="enter"></step>
+	</option>
+
+	
+	<!-- type 类型  showDesktop(显示桌面) leftClick(点击鼠标左键) leftDoubleClick(双击鼠标左键)
+	  rightClick(点击鼠标右键)  keyPress(单个按键) combinationKeyPress(组合按键)  wait(等待  单位秒)
+	  text(输入文本，复制输入)  textKeyPress(输入文本,按键输入) randomtext(输入随机文本)-->
+	<!-- postion 操作的 x , y 坐标 -->
+	<!-- option count 表示循环次数 -->
+</root>
