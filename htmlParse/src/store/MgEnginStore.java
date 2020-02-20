@@ -104,7 +104,7 @@ public class MgEnginStore
 	{
 		ContentUnit unit = new ContentUnit();
 		unit.setItem(ItemCache.single().getItem(key));
-		unit.readItem(null, "");
+		unit.readItem();
 		
 		return unit.getItem();
 	}
@@ -145,18 +145,18 @@ public class MgEnginStore
 		store.startUp();
 		
 		Thread.sleep(1000);
-		
-		StoreItem item = store.getContent("5A3A58E444BD4A8EB642AEA458CEBF69");
-		System.out.println(item.getContent().keySet().iterator().next());
-		System.out.println(item.getContent().values().iterator().next());
+//		
+//		StoreItem item = store.getContent("5A3A58E444BD4A8EB642AEA458CEBF69");
+//		System.out.println(item.getContent().keySet().iterator().next());
+//		System.out.println(item.getContent().values().iterator().next());
 		
 //		
 		
-//		Thread.sleep(1000);
-//		Map map = new HashMap();
-//		map.put("matao", "昨天");
+		Thread.sleep(1000);
+		Map map = new HashMap();
+		map.put("matao", "昨天");
 		
-//		store.save(map);
+		store.save(map);
 //		
 //		Thread.sleep(4000);
 //		

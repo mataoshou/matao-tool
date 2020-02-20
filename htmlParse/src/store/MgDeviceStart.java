@@ -43,6 +43,7 @@ public class MgDeviceStart extends Thread
 				e1.printStackTrace();
 			}
 			
+			
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

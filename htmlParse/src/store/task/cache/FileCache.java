@@ -18,6 +18,7 @@ import store.config.FileConfig;
 import store.constant.FileConstant;
 import store.constant.FileType;
 import util.DomUtil;
+import util.FileStore;
 import util.Shift;
 
 public class FileCache
@@ -94,9 +95,12 @@ public class FileCache
 		else {
 			item = getNewFile(type);
 			switch(type) {
-				case FileType.FILE_TYPE_CONTENT: contents.put(item.getFileName(), item);break;
-				case FileType.FILE_TYPE_ITEM: items.put(item.getFileName(), item);break;
-				case FileType.FILE_TYPE_WORD: words.put(item.getFileName(), item);break;
+				case FileType.FILE_TYPE_CONTENT: 
+					contents.put(item.getFileName(), item);contentEmpty =item.getFileName(); break;
+				case FileType.FILE_TYPE_ITEM: 
+					items.put(item.getFileName(), item);itemEmpty =item.getFileName();break;
+				case FileType.FILE_TYPE_WORD: 
+					words.put(item.getFileName(), item);wordEmpty =item.getFileName();break;
 			}
 		}
 		return item;
@@ -270,6 +274,29 @@ public class FileCache
 		}
 		
 		return 9;
+	}
+	
+	public void delete(String type)
+	{
+		Map<String ,FileItem> map = null;
+		
+		switch(type)
+		{
+		case FileType.FILE_TYPE_ITEM :map = items;break;
+		case FileType.FILE_TYPE_CONTENT :map = contents;break;
+		case FileType.FILE_TYPE_WORD :map = words;break;
+		}
+		FileStore store = new FileStore();
+		if(map!=null)
+		{
+			for(Entry<String ,FileItem> entry :map.entrySet())
+			{
+				File file = new File(FileConfig.root,entry.getValue().getFileName());
+				store.delete(file);
+			}
+		}
+		
+		
 	}
 	
 	

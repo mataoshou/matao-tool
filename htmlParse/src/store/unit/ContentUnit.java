@@ -132,6 +132,11 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 		log.log("添加content",item.getId());
 		input.close();
 	}
+	
+	public void readItem() throws Exception
+	{
+		readItem(null,null);
+	}
 
 
 }

@@ -9,6 +9,7 @@ import pojo.store.StoreItem;
 import store.constant.CacheConstant;
 import store.task.cache.IBaseCacheTask;
 import store.task.cache.WordAnalysisTask;
+import store.task.cache.WordCache;
 
 public class CacheDevice{
 	
@@ -47,6 +48,8 @@ public class CacheDevice{
 				entry.getValue().run();
 			}
 		}
+		
+		WordCache.single().persist();
 		//log.log("完成","执行周期缓存任务");
 	}
 

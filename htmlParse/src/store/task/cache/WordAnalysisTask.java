@@ -75,9 +75,6 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 					
 					WordCache.single().addId(keys, item.getId());
 				}
-				
-				
-				
 			}
 		}
 	}

@@ -72,24 +72,18 @@ public class WordUnit extends IBaseStoreUnit<WordItem>
 	{
 		try {
 			File file = new File(FileConfig.root,getFileName());
+			System.out.println("存储至文件 ," + getFileName());
+			
 			RandomAccessFile stream = new RandomAccessFile(file, "rw");
 			stream.seek(item.getBegin());
-			
-			if(this.item.getMax()>this.item.getMax())
-			{
-				stream.writeBytes(buildFileContent());
-				stream.close();
-			}
-			else {
-				stream.writeBytes(FileConstant.STATUS_ITEM_DISCARD);
-				stream.close();
-				FileItem fi = FileCache.single().getEmpty(FileType.FILE_TYPE_WORD,buildFileContent().length()*8);
-				File newFile = new File(FileConfig.root, fi.getFileName());
-				RandomAccessFile newStream = new RandomAccessFile(newFile, "rw");
-				newStream.seek(fi.getUsed());
-				newStream.writeBytes(buildFileContent());
-				newStream.close();
-			}
+			stream.writeBytes(FileConstant.STATUS_ITEM_DISCARD);
+			stream.close();
+			FileItem fi = FileCache.single().getEmpty(FileType.FILE_TYPE_WORD,buildFileContent().length()*8);
+			File newFile = new File(FileConfig.root, fi.getFileName());
+			RandomAccessFile newStream = new RandomAccessFile(newFile, "rw");
+			newStream.seek(fi.getUsed());
+			newStream.writeBytes(buildFileContent());
+			newStream.close();
 		}
 		catch(Exception e) {
 			e.printStackTrace();

@@ -1,12 +1,17 @@
 package store.task.cache;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+import log.Logger;
 import pojo.store.FileItem;
 import pojo.store.WordItem;
+import store.constant.FileConstant;
+import store.constant.FileType;
 import store.unit.WordUnit;
 
 public class WordCache
@@ -19,13 +24,12 @@ public class WordCache
 		return one;
 	}
 	
+	Logger log = new Logger(this.getClass());
+	
 	Map<String,WordItem> m_map = new ConcurrentHashMap();
 	
 	private int mod =0;
-	
-	int id_len = 32*8;//id长度
-	int no_len = 8*8;//数字长度
-	int state_len =8;//状态长度
+
 	
 	public void loadCache(File root)
 	{
@@ -34,11 +38,12 @@ public class WordCache
 		
 		for(FileItem file :FileCache.single().words.values())
 		{
+			RandomAccessFile input =null;
 			try {
 				File itemFile = new File(root,file.getFileName());
 				
 //				FileInputStream  input = new FileInputStream(itemFile);
-				RandomAccessFile input = new RandomAccessFile(itemFile, "rw");
+				input = new RandomAccessFile(itemFile, "rw");
 				while(true)
 				{
 					if(input.getFilePointer()>=itemFile.length())break;
@@ -47,11 +52,20 @@ public class WordCache
 					
 					m_map.put(unit.getItem().getWord(), unit.getItem());
 				}
-				input.close();
+				
 			}
 			catch(Exception e)
 			{
 				
+			}
+			finally {
+				try
+				{
+					input.close();
+				} catch (IOException e)
+				{
+					e.printStackTrace();
+				}
 			}
 			
 		}
@@ -88,6 +102,28 @@ public class WordCache
 	}
 	
 	
+	public void persist()
+	{
+		if(mod==0)return;
+		
+		log.log("开始word的本地化");
+		
+		log.log("删除word存储文件");
+		FileCache.single().delete(FileType.FILE_TYPE_WORD);
+		
+		for(Entry<String,WordItem> entry : m_map.entrySet())
+		{
+			WordItem item = entry.getValue();
+			WordUnit unit = new WordUnit();
+			unit.setItem(item);
+			item.setFileId(FileCache.single().getEmpty(FileType.FILE_TYPE_WORD, unit.getLength()).getId());
+			unit.persist();
+		}
+		log.getLog("完成word的本地化");
+		mod=0;
+	}
+	
+	
 	public void addId(String[] words,String id)
 	{
 		for(String word : words)
@@ -106,11 +142,7 @@ public class WordCache
 		this.mod++;
 		this.m_map.put(item.getWord(), item);
 	}
-	
-	public int getLength(WordItem item)
-	{
-		return (state_len + no_len*5+id_len*item.getsIds().size() +item.getWord().length());
-	}
+
 	
 	
 }
