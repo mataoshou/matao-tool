@@ -11,6 +11,7 @@ import store.divide.DivideWord;
 import store.task.device.ItemDevice;
 import store.unit.ContentUnit;
 import store.unit.ItemUnit;
+import store.unit.UnitUtil;
 import util.GuidUtil;
 
 public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
@@ -29,42 +30,17 @@ public class WordAnalysisTask extends IBaseCacheTask<StoreItem> {
 				i--;
 				
 				
-				ContentUnit unit = new ContentUnit();
-				
-				unit.setItem(item);
-				
-				if(item.getId()!=null&&item.getId().length()>0)
-				{
-					
-				}
+				UnitUtil util = new UnitUtil();
 				item.setId(GuidUtil.gen());
-				FileItem fitem = FileCache.single().getEmpty(FileType.FILE_TYPE_CONTENT, unit.getLength());
 				
-				long begin = fitem.getUsed()+fitem.getReserve();
-				fitem.addReserve(unit.getLength());
+				ContentUnit unit = util.calculateContent(util.buildContentUnit(item));		
 				
-				item.setCbegin(begin);
-				item.setClength(unit.getLength());
-				item.setCend(item.getCbegin() + item.getClength());
-				
-				item.setStoreId(fitem.getId());
+				ItemDevice.single().addTask(unit.getFileId(), unit);
 				
 				
-				ItemDevice.single().addTask(fitem.getId(), unit);
+				ItemUnit iunit = util.calculateStore(util.buildStoreUnit(item));
 				
-				
-				ItemUnit iunit = new ItemUnit();
-				iunit.setItem(item);
-				
-				fitem = FileCache.single().getEmpty(FileType.FILE_TYPE_ITEM, iunit.getLength());
-				
-				item.setFileId(fitem.getId());
-				item.setIbegin(fitem.getUsed()+fitem.getReserve());
-				item.setIlength(iunit.getLength());
-				
-				
-				
-				ItemDevice.single().addTask(fitem.getId(), iunit);
+				ItemDevice.single().addTask(iunit.getFileId(), iunit);
 				ItemCache.single().add(item);
 				
 				DivideWord divide = new DivideWord();

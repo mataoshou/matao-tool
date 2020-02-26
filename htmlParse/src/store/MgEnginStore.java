@@ -158,10 +158,10 @@ public class MgEnginStore
 		
 		store.save(map);
 //		
-//		Thread.sleep(4000);
+		Thread.sleep(4000);
 //		
-//		map.put("matao2", "今天");
+		map.put("matao2", "今天");
 //		
-//		store.save(map);
+		store.save(map);
 	}
 }

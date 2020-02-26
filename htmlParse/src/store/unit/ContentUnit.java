@@ -138,5 +138,10 @@ public class ContentUnit extends IBaseStoreUnit<StoreItem>
 		readItem(null,null);
 	}
 
+	@Override
+	public String getFileId() {
+		return this.item.getStoreId();
+	}
+
 
 }

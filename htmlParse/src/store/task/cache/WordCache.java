@@ -12,6 +12,7 @@ import pojo.store.FileItem;
 import pojo.store.WordItem;
 import store.constant.FileConstant;
 import store.constant.FileType;
+import store.unit.UnitUtil;
 import store.unit.WordUnit;
 
 public class WordCache
@@ -111,12 +112,12 @@ public class WordCache
 		log.log("删除word存储文件");
 		FileCache.single().delete(FileType.FILE_TYPE_WORD);
 		
+		UnitUtil util = new UnitUtil();
+		
 		for(Entry<String,WordItem> entry : m_map.entrySet())
 		{
 			WordItem item = entry.getValue();
-			WordUnit unit = new WordUnit();
-			unit.setItem(item);
-			item.setFileId(FileCache.single().getEmpty(FileType.FILE_TYPE_WORD, unit.getLength()).getId());
+			WordUnit unit = util.calculateWord(util.buildWordUnit(item));
 			unit.persist();
 		}
 		log.getLog("完成word的本地化");

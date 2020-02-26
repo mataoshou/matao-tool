@@ -2,12 +2,15 @@
 
 <root>
   <items>
+    <item id="00010002" fileName="itemhouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <item id="00010001" fileName="itemhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
   </items>
   <words>
+    <word id="00030002" fileName="wordhouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <word id="00030001" fileName="wordhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
   </words>
   <contents>
     <content id="00020001" fileName="contenthouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
+    <content id="00020002" fileName="contenthouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
   </contents>
 </root>

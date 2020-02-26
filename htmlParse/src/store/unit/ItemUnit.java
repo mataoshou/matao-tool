@@ -105,4 +105,9 @@ public class ItemUnit extends IBaseStoreUnit<StoreItem>
 		
 	}
 
+	@Override
+	public String getFileId() {
+		return item.getFileId();
+	}
+
 }

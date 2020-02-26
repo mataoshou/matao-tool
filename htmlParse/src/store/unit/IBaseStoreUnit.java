@@ -46,6 +46,8 @@ public abstract class IBaseStoreUnit<T>
 	
 	public abstract int getLength();
 	
+	public abstract String getFileId();
+	
 	
 	public abstract void readItem(RandomAccessFile stream,String fileId) throws Exception;
 	

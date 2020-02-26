@@ -157,4 +157,9 @@ public class WordUnit extends IBaseStoreUnit<WordItem>
 		
 	}
 
+	@Override
+	public String getFileId() {
+		return item.getFileId();
+	}
+
 }
