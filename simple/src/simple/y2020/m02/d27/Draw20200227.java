@@ -31,6 +31,9 @@ public class Draw20200227 {
 	}
 	
 	
+	
+	
+	
 	public static void main(String[] args)
 	{
 		Draw20200227 draw = new Draw20200227();
