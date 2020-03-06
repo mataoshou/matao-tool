@@ -51,7 +51,6 @@ public class MgEnginStore
 				e.printStackTrace();
 			}
 			log.log("启动服务成功");
-			
 		}
 	}
 	
