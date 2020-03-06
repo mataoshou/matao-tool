@@ -1,7 +1,9 @@
 package simple.draw.y2020.m03.d05;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
@@ -13,8 +15,9 @@ public class Draw20200305 extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-//		g.setColor(Color.red);
-//		g.fillOval(100, 100, 500, 500);
+		BasicStroke stroke = new BasicStroke(2);
+		Graphics2D g_2d=(Graphics2D)g;
+		g_2d.setStroke(stroke);
 		for(int i=0;i<5;i++)
 		{
 			g.setColor(Color.red);
