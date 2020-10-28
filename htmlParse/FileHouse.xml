@@ -3,7 +3,6 @@
 <root>
   <items>
     <item fileName="itemhouse_4.mt" max="10000000" use="0" empty="10000000" count="0"/>
-    <item fileName="mg_engin_1.mt" max="100" use="10" empty="10" count="12"/>
     <item fileName="itemhouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <item fileName="itemhouse_3.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <item fileName="itemhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
@@ -11,12 +10,11 @@
   <words>
     <word fileName="wordhouse_1.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <word fileName="wordhouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
-    <word fileName="mg_engin_1.mt" max="100" use="0" empty="100" count="12"/>
     <word fileName="wordhouse_4.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <word fileName="wordhouse_3.mt" max="10000000" use="0" empty="10000000" count="0"/>
   </words>
   <contents>
-    <content fileName="mg_engin_1.mt" max="100" use="0" empty="100" count="12"/>
+   
     <content fileName="contenthouse_2.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <content fileName="contenthouse_3.mt" max="10000000" use="0" empty="10000000" count="0"/>
     <content fileName="contenthouse_4.mt" max="10000000" use="0" empty="10000000" count="0"/>
